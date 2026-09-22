@@ -19,13 +19,12 @@ import matplotlib.dates as mdates
 
 filename = "data/soi_3dp.dat"
 
+timestamp = "Aug2026"
+
 rm_window = 3               # running mean length (months)
 
 threshold = 1.0             # e.g. 1 or 2
 threshold_type = "sd"       # "sd" or "absolute"
-
-#line_colour = "#0055A4"
-#monthly_colour = "0.80"
 
 monthly_colour = "0.75"
 line_colour = "#004B87"
@@ -109,14 +108,8 @@ print(f"Threshold = {thr:.3f}")
 
 n = len(df)
 
-#segments = [
-#    ("1920-1979", "1920-01-01", "1979-12-31"),
-#    ("1860-1919", "1860-01-01", "1919-12-31"),
-#    ("1980-present", "1980-01-01", df["date"].max())
-#]
-
 segments = [
-    ("1865-1920", "1865-01-01", "1920-01-01"),
+    ("1866-1920", "1865-01-01", "1920-01-01"),
     ("1920-1975", "1920-01-01", "1975-01-01"),
     ("1975-present", "1975-01-01", "2030-01-01")
 ]
@@ -127,14 +120,6 @@ segments = [
 
 # Specify event label and period within which to search for peak
 
-#events = {
-#    "1982-83": ("1982-01-01", "1984-01-01"),
-#    "1877-78": ("1877-01-01", "1879-01-01"),
-#    "1997-98": ("1997-01-01", "1999-01-01"),
-#    "2015-16": ("2015-01-01", "2017-01-01"),
-#    "2026":    ("2025-01-01", "2027-12-31"),
-#}
-
 events = {
     "1877-78": ("1877-01-01", "1879-01-01"),
     "1896-97": ("1896-01-01", "1898-01-01"),
@@ -144,8 +129,6 @@ events = {
     "1997-98": ("1997-01-01", "1999-01-01"),
     "2026":    ("2025-01-01", "2027-12-31"),
 }
-
-
 
 # ==========================================================
 # PLOT
@@ -304,10 +287,6 @@ for ax, (label, start, end) in zip(axes, segments):
             fontweight="bold"
         )
 
-
-
-
-
 axes[1].set_ylabel(
     f"Reversed SOI ({rm_window}-month mean)"
 )
@@ -336,6 +315,10 @@ plt.rcParams.update({
 })
 
 plt.tight_layout()
+
+figfn = "CRU-SOI-fullTS-"+timestamp
+fig.savefig(f"images/{figfn}.png", dpi=300, bbox_inches="tight")
+fig.savefig(f"images/{figfn}.pdf", bbox_inches="tight")
 
 plt.show()
 
@@ -458,6 +441,11 @@ fig.text(
 )
 
 plt.tight_layout()
+
+figfn = "CRU-SOI-events-"+timestamp
+fig.savefig(f"images/{figfn}.png", dpi=300, bbox_inches="tight")
+fig.savefig(f"images/{figfn}.pdf", bbox_inches="tight")
+
 plt.show()
 
 #%% Now make a new plot with a composite of El Nino events, aligned by January nearest peak
@@ -651,6 +639,11 @@ fig.text(
 )
 
 plt.tight_layout()
+
+figfn = "CRU-SOI-eventsJan-"+timestamp
+fig.savefig(f"images/{figfn}.png", dpi=300, bbox_inches="tight")
+fig.savefig(f"images/{figfn}.pdf", bbox_inches="tight")
+
 plt.show()
 
 
@@ -744,5 +737,11 @@ fig.text(
 
 
 plt.tight_layout()
+
+
+figfn = "CRU-SOI-jjaTS-"+timestamp
+fig.savefig(f"images/{figfn}.png", dpi=300, bbox_inches="tight")
+fig.savefig(f"images/{figfn}.pdf", bbox_inches="tight")
+
 plt.show()
 
